@@ -1,0 +1,84 @@
+/*
+Kurzdokumentatin fuer CbkError    
+
+ERROR_UNDEF,//nicht spezifiziert
+
+dieses Element hier ist keinem Thema zugewiesen
+von daher sollte es nicht benutzt werden im Moment
+ERROR_CRITICAL,//kritische Fehler, allgemeingueltig
+
+errorsection
+
+ERROR_sCORE,  //Fehler gemeldet durch Core-Code
+ERROR_sCLASS, // Class-Code, der den Core-Code benutzt
+ERROR_sAPP,   // Anwendung, die den Class-Code benutzt
+
+errortype Fehlerart
+ERROR_tCRITICAL,        //kritischer Fehler, boese boese
+ERROR_tPARAMETER,       //Parameter nicht zu gebrauchen in Funktion,
+ERROR_tERRORLEVEL,      //Errorlevel kann nicht geeandert werden weil Critical
+ERROR_tMEMORY,          //nicht genug Speicher
+ERROR_tNETTRANSFER,     //Information kann nicht uebertragen werden
+ERROR_tNETCONNECT,      //Netzverbindung kann nicht aufgebaut werden
+ERROR_tFILEOUTPUT,      //Datei kann nicht geschrieben werden
+ERROR_tFILEINPUT,       //Datei kann nicht gelesen/gefunden werden
+
+
+errorlevel Variable
+
+ERROR_lCRITICAL, 
+
+Prog-Abbruch wenn keine Loesung
+
+ Definition eines CRITICAL ERRORS
+Es ist ein Fehler aufgetreten, dessen gesamte Ursache nicht mehr
+genau festzustellen ist. Eine Fortfuehrung der Anwendung wird
+ggf. unvorhersehbare, nicht logische Aktionen hervorrufen.
+Die Anwendung ist zu beenden, sobald wie moeglich.
+Die Anwendung selbst prueft, ob ein Fehler dieser Art irgendwo
+aufgetreten ist und kann daraufhin auch bestimmte Programmteile
+ueberspringen, um die Systemintegritaet nicht zu gefaehrden.
+Deswegen ist der Errorlevel in der Klasse auch statisch.
+
+Welche Dinge sollten nicht mehr durchgefuehrt werden,
+wenn ein kritischer Fehler aufgetreten ist?
+
+Ausgabe von wichtigen Informationen
+Schreibzugriffe auf wichtige Informationen
+Verarbeitung wichtiger Informationen, die
+bei falscher Behandlung, egal wie, das System bei einem
+Problem in irgend einer Weise durcheinander bringen koennten.
+
+ERROR_lWARNING,  
+
+ein wichtiger Hinweis
+ Definition einer Warnung
+Die Systemintegritaet ist nicht gefaehrdet. Das Programm
+selbst kann weiterlaufen (richtige Fehlerbehandlung vorausgesetzt!),
+sonst wenn der Fehler nicht behoben werden kann, Ende.
+Anwendungsbeispiel: Eine Textdatei die geladen werden soll (Template), wurde nic
+ht gefunden. Das Prog an sich kann technisch auch ohne diese Datei weiterlaufen
+Warnungen werden zum Beispiel ausgegeben, wenn zur Laufzeit
+Dateien bearbeitet werden sollen, die nicht verfuegbar sind.
+
+Eine Warnung fuehrt nicht zu eine Instabilitaet des Systems,
+sondern soll nur auf ein Problem hinweisen, das behoben werden sollte,
+um den Effekt zu erzielen, den man von einer Funktion erwuenscht.
+
+ERROR_lNOTICE   //Eine Sache die man wissen sollte
+/*
+Definition eines Hinweises
+Ein Hinweis ist eine Mitteilung ueber ein Problem, das definitiv niemals eine ec
+hte Gefahr oder ein echtes Problem fuer das Programm darstellt. Dennoch koennte
+man das Problem vermeiden, wenn man irgend welche Dinge richtig macht, was immer
+ das auch fuer Dinge sind. Das System hat selbst versucht, die Situation richtig
+ zu erfassen und die Daten richtig zu verarbeiten. Dennoch ist ein Exception Han
+dling noetig, um diese Situation zu akzeptieren.
+*/
+
+/*
+Wenn ein Fehler positiv behandelt wurde, muss der ErrorLevel wieder auf 0
+gesetzt werden, ausser er war CRITICAL, dann bleibt der Errorlevel.
+
+*/
+
